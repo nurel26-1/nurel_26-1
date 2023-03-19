@@ -5,7 +5,7 @@ from posts.models import Product
 
 def hello(request):
     if request.method == 'GET':
-        return HttpResponse('hello, its my first project')
+        return HttpResponse('hello, its my first project! Enjoy! :)')
 
 
 def now_date(request):
