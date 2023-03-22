@@ -1,0 +1,56 @@
+{% extends 'layouts/index.html' %}
+
+{% block content %}
+    <style type="text/css">
+        .product_block {
+            width: 80%;
+            margin-left: 10%;
+            padding: 10px;
+        }
+
+        .dates {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .comments {
+            margin-top: 30px;
+        }
+
+        .comment_block {
+            background: #242b2e;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+    </style>
+    <div class="product_block">
+        <div class="image">
+            {% for image in images %}
+                <div class="images">
+
+                </div>
+            {% endfor %}
+        </div>
+        <div class="info">
+            <img src="{{ product.image.url }}">
+            <h1>{{ product.title }}</h1>
+            <h4>{{ product.description }}</h4>
+            <h4>Quantity: {{ product.quantity }}</h4>
+            <div class="dates">
+                <p>{{ product.created_date }}</p>
+                <p>{{ product.modified_date }}</p>
+            </div>
+        </div>
+        <div class="comments">
+            {% for comment in comments %}
+                <div class="comment_block">
+                    <h5>{{ comment.text }}</h5>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+

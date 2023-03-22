@@ -8,3 +8,8 @@ class Product(models.Model):
     create_update = models.DateField(auto_now_add=True)
     modified_date = models.DateField(auto_now=True)
     quantity = models.FloatField()
+
+
+class Review(models.Model):
+    text = models.CharField(max_length=255)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
