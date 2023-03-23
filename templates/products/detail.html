@@ -28,7 +28,7 @@
     <div class="product_block">
         <div class="image">
             {% if product.image %}
-                <img src="{MEDIA/URL}:{{ product.image }}" alt="norm">
+                <img src="{{ product.image.url }}" alt="norm">
             {% endif %}
         </div>
         <div class="info">
