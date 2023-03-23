@@ -15,7 +15,7 @@
         {% for product in products %}
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <img src="{{ product.image.url }}">
+                    <img src="{{ product.image.url }}" alt="nothing">
                     <h5 class="card-title">{{ product.title }}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Quantity: {{ product.quantity }}</h6>
                     <a href="/products/{{ product.id }}/" class="card-link">More</a>
