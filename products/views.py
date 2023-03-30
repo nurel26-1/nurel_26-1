@@ -1,5 +1,7 @@
-from django.shortcuts import HttpResponse, render
+from django.shortcuts import HttpResponse, render, redirect
 from datetime import datetime
+
+from products.forms import ProductCreateForm
 from products.models import Product
 
 
@@ -41,3 +43,26 @@ def products_detail_view(request, id):
             'review': product.review_set.all(),
         }
         return render(request, 'products/detail.html', context=context)
+
+
+def product_create_view(request):
+    if request.method == 'GET':
+        context = {
+            'form': ProductCreateForm
+        }
+        return render(request, 'products/create.html', context=context)
+
+    if request.method == 'POST':
+        form = ProductCreateForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            Product.objects.create(
+                name=form.cleaned_data.get('name'),
+                description=form.cleaned_data.get('description'),
+                price=form.cleaned_data.get('price'),
+                image=form.cleaned_data.get('image')
+            )
+            return redirect('/products/')
+        return render(request, 'products/create.html', context={
+            'form': form
+        })
