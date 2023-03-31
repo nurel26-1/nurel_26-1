@@ -30,7 +30,8 @@ def products_view(request):
     if request.method == 'GET':
         products = Product.objects.all()
         context = {
-            'products': products
+            'products': products,
+            'user': request.user
         }
         return render(request, 'products/products.html', context=context)
 
@@ -41,6 +42,7 @@ def products_detail_view(request, id):
         context = {
             'product': product,
             'review': product.review_set.all(),
+            'user': request.user
         }
         return render(request, 'products/detail.html', context=context)
 
@@ -66,3 +68,6 @@ def product_create_view(request):
         return render(request, 'products/create.html', context={
             'form': form
         })
+
+
+
