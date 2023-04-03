@@ -3,6 +3,7 @@ from datetime import datetime
 
 from products.forms import ProductCreateForm
 from products.models import Product
+from products.costans import PAGINATION_LIMIT
 
 
 def hello(request):
@@ -29,9 +30,24 @@ def main_view(request):
 def products_view(request):
     if request.method == 'GET':
         products = Product.objects.all()
+        search = request.GET.get('search')
+        page = int(request.GET.get('page', 1))
+
+        '''starts_with, ends_with, icontains'''
+
+        if search:
+            products = products.filter(title__icontains=search) | products.filter(description__icontains=search)
+
+        max_page = products.__len__() / PAGINATION_LIMIT
+        max_page = round(max_page) + 1 if round(max_page) < max_page else round(max_page)
+
+        '''products splice'''
+        products = products[PAGINATION_LIMIT * (page - 1): PAGINATION_LIMIT * page]
+
         context = {
             'products': products,
-            'user': request.user
+            'user': request.user,
+            'pages': range(1, max_page+1)
         }
         return render(request, 'products/products.html', context=context)
 
