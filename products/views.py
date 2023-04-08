@@ -127,14 +127,13 @@ class ProductDetailCBV(DetailView, CreateView):
 
     def post(self, request, **kwargs):
 
-        data = request.POST
-        form = self.form_class(data=data)
+        form = ReviewCreateForm(data=request.POST)
 
         if form.is_valid():
             Review.objects.create(
                 text=form.cleaned_data.get('text'),
                 rate=form.cleaned_data.get('rate'),
-                product_id=self.get_object().id
+                product_id=self.get_object().id,
             )
             return redirect(f'/products/{self.get_object().id}/')
 

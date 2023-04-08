@@ -36,7 +36,7 @@
             <h4>{{ product.description }}</h4>
             <h4>Quantity: {{ product.quantity }}</h4>
             <div class="dates">
-                <p>{{ product.created_date }}</p>
+                <p>{{ product.create_update }}</p>
                 <p>{{ product.modified_date }}</p>
             </div>
         </div>
@@ -45,16 +45,20 @@
                 <form action="/products/{{ product.id }}/" method="post">
                     {% csrf_token %}
                     {{ form.as_p }}
+                    <div class="reviews">
+                        {% if Reviews %}
+                            {% for review in Reviews %}
+                                <div class="review_block">
+                                    <h5>{{ review.text }}</h5>
+                                    <h5>Rate: {{ review.rate }}</h5>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                      </div>
                     <input type="submit" value="Add comment">
                 </form>
             </div>
         {% endif %}
-        <div class="reviews">
-            {% for review in reviews %}
-                <div class="review_block">
-                    <h5>{{ review.text }}</h5>
-                </div>
-            {% endfor %}
-        </div>
+
     </div>
 {% endblock %}
