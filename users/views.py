@@ -110,6 +110,6 @@ class LoginCBV(ListView, CreateView):
 #     return redirect('/products/')
 
 class LogoutCBV(ListView):
-    def get(self, request):
+    def get(self, request, **kwargs):
         logout(request)
         return redirect('/products/')
