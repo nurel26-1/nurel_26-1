@@ -41,10 +41,10 @@
             </div>
         </div>
         {% if not user.is_anonymous %}
-            <div class="create_review">
+            <div class="create_comment">
                 <form action="/products/{{ product.id }}/" method="post">
                     {% csrf_token %}
-                    {{ form }}
+                    {{ form.as_p }}
                     <input type="submit" value="Add comment">
                 </form>
             </div>
