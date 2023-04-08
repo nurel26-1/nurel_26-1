@@ -101,15 +101,15 @@ class ProductsCBV(ListView):
         return render(request, self.template_name, context=context)
 
 
-def products_detail_view(request, id):
-    if request.method == 'GET':
-        product = Product.objects.get(id=id)
-        context = {
-            'product': product,
-            'review': product.review_set.all(),
-            'user': request.user
-        }
-        return render(request, 'products/detail.html', context=context)
+# def products_detail_view(request, id):
+#     if request.method == 'GET':
+#         product = Product.objects.get(id=id)
+#         context = {
+#             'product': product,
+#             'review': product.review_set.all(),
+#             'user': request.user
+#         }
+#         return render(request, 'products/detail.html', context=context)
 
 
 class ProductDetailCBV(DetailView, CreateView):
@@ -128,7 +128,7 @@ class ProductDetailCBV(DetailView, CreateView):
     def post(self, request, **kwargs):
 
         data = request.POST
-        form = ReviewCreateForm(data=data)
+        form = self.form_class(data=data)
 
         if form.is_valid():
             Review.objects.create(
@@ -183,7 +183,10 @@ class CreateProductCBV(CreateView, ListView):
 
         if form.is_valid():
             self.model.objects.create(
-                title=form.cleaned_data.get('title')
+                title=form.cleaned_data.get('title'),
+                quantity=form.cleaned_data.get('quantity'),
+                image=form.cleaned_data.get('image'),
+                description=form.cleaned_data.get('description')
             )
             return redirect('/products/')
         return render(request, self.template_name, context={self.get_context_data(form=form)})

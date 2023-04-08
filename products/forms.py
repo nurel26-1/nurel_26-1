@@ -10,3 +10,4 @@ class ProductCreateForm(forms.Form):
 
 class ReviewCreateForm(forms.Form):
     text = forms.CharField(max_length=255, min_length=3)
+    rate = forms.CharField()
